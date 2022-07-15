@@ -35,7 +35,8 @@ class BookingController extends AbstractController
 
         return $this->renderForm('booking.html.twig', [
             'form' => $form,
-            'message' => $bookingResponse ?? '',
+            'message' => $bookingResponse['message'] ?? '',
+            'availability' => $bookingResponse['availability'] ?? [],
         ]);
 
 

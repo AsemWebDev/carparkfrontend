@@ -36,7 +36,7 @@ class AvailabilityService
         return $this->formatResponse($responseContent['availableSpaces']);
     }
 
-    private function formatResponse(array $data): array
+    public function formatResponse(array $data): array
     {
         foreach ($data as $key => $item) {
             if ($item == 0) {
@@ -46,7 +46,6 @@ class AvailabilityService
             } else {
                 $pre = $item;
             }
-
 
             $data[$key] = $pre . ' free space' . ($item > 1 ? 's' : '');
         }

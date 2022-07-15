@@ -10,19 +10,28 @@ class BookingService
 {
     private HttpClientInterface $client;
     private string $apiUrl;
+    private AvailabilityService $availabilityService;
 
-    public function __construct(HttpClientInterface $client, ParameterBagInterface $parameterBag)
+    public function __construct(
+        HttpClientInterface $client,
+        ParameterBagInterface $parameterBag,
+        AvailabilityService $availabilityService
+    )
     {
         $this->client = $client;
         $this->apiUrl = $parameterBag->get('api_url');
+        $this->availabilityService = $availabilityService;
     }
 
-    public function Book(string $username, DateTime $fromDate, DateTime $toDate): string
+    public function Book(string $username, DateTime $fromDate, DateTime $toDate): array
     {
         $response = $this->client->request(
             'POST',
             $this->apiUrl . '/book',
             [
+                'headers' => [
+                    'Content-Type' => 'application/x-www-form-urlencoded',
+                ],
                 'query' => [
                     'username' => $username,
                     'from' => $fromDate->format('Y-m-d'),
@@ -32,8 +41,16 @@ class BookingService
         );
 
         $responseContent = json_decode($response->getContent(), true);
-        return $this->formatResponse($responseContent['availableSpaces']);
-        //return 'Your parking space is booked successfully';
-    }
 
+        if (array_key_exists('availability', $responseContent) && count($responseContent['availability'] ) > 0) {
+            $responseContent['availability'] = $this->availabilityService->formatResponse(
+                $responseContent['availability']
+            );
+        }
+
+        return [
+            'message' => $responseContent['message'],
+            'availability' =>  $responseContent['availability'] ?? [],
+        ];
+    }
 }

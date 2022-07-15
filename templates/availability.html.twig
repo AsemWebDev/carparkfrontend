@@ -7,25 +7,6 @@
     {{ form(form) }}
 
     {% if available_spaces|length > 0 %}
-        <div class="row">
-            <div class="col-4">
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th scope="col">Date</th>
-                        <th scope="col">Available Spaces</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        {% for date, spaces in available_spaces %}
-                            <tr>
-                                <td>{{ date }}</td>
-                                <td>{{ spaces }}</td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        {% include 'include/spaces.html.twig' with {'available_spaces': available_spaces} %}
     {% endif %}
 {% endblock %}
