@@ -4,7 +4,9 @@
     {% form_theme form 'bootstrap_5_layout.html.twig' %}
 
     <h2>Check Availability</h2>
-    {{ form(form) }}
+    <div class="row">
+        <div class="col-4">{{ form(form) }}</div>
+    </div>
 
     {% if available_spaces|length > 0 %}
         {% include 'include/spaces.html.twig' with {'available_spaces': available_spaces} %}

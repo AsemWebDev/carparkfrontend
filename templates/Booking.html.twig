@@ -4,12 +4,12 @@
     {% form_theme form 'bootstrap_5_layout.html.twig' %}
 
     <h2>Book your parking space</h2>
-    {{ form(form) }}
+    <div class="row">
+        <div class="col-4">{{ form(form) }}</div>
+    </div>
 
     <div class="row">
-        <div class="col">
-            {{ message }}
-        </div>
+        <div class="col">{{ message }}</div>
     </div>
 
     {% if availability|length > 0 %}
