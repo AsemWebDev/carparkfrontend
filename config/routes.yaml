@@ -1,3 +1,11 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+home:
+    path: /
+    controller: App\Controller\HomeController::index
+
+check-availability:
+    path: /check-availability
+    controller: App\Controller\AvailabilityController::index
+
+book-space:
+    path: /book-space
+    controller: App\Controller\BookingController::book

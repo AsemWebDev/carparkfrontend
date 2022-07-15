@@ -1,0 +1,14 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    {% form_theme form 'bootstrap_5_layout.html.twig' %}
+
+    <h2>Book your parking space</h2>
+    {{ form(form) }}
+
+    <div class="row">
+        <div class="col">
+            {{ message }}
+        </div>
+    </div>
+{% endblock %}
